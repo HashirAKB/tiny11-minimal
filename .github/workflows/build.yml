@@ -46,12 +46,24 @@ jobs:
       - name: Build headless driver
         run: dotnet build harness/Tiny11Headless.csproj -c Release -o "${{ env.WORK }}\bin"
 
-      - name: Free disk space and show environment
+      - name: Install Windows ADK Deployment Tools (DISM servicing stack for Windows 11 images)
+        shell: pwsh
+        run: |
+          # Server 2025's in-box DismApi/dismcore report file version 6.2.x, which Tiny11 Builder rejects for
+          # Windows 11 images. The ADK Deployment Tools DISM reports 10.0.26100.x and is picked up automatically.
+          choco install windows-adk-deploy -y --no-progress
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Show environment and DISM versions
         shell: pwsh
         run: |
           [System.Environment]::OSVersion.Version
           Get-PSDrive -PSProvider FileSystem | Format-Table Name, @{n='FreeGB';e={[math]::Round($_.Free/1GB,1)}}
-          (Get-Item "$env:WINDIR\System32\dism.exe").VersionInfo.ProductVersion
+          $adk = "${env:ProgramFiles(x86)}\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\DISM"
+          foreach ($f in "$env:WINDIR\System32\dism.exe", "$env:WINDIR\System32\DismApi.dll", "$env:WINDIR\System32\Dism\dismcore.dll",
+                         "$adk\dism.exe", "$adk\DismApi.dll", "$adk\dismcore.dll") {
+            if (Test-Path $f) { "{0,-110} {1}" -f $f, (Get-Item $f).VersionInfo.FileVersionRaw } else { "{0,-110} (missing)" -f $f }
+          }
 
       - name: Download latest Windows 11 from Microsoft
         shell: pwsh
