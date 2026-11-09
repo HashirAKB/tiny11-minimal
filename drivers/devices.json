@@ -1,0 +1,22 @@
+[
+  {"name": "Intel HD Graphics 620", "queries": ["PCI\\VEN_8086&DEV_5916&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_5916"], "prefer": "^Intel"},
+  {"name": "AMD Radeon R5 M430", "queries": ["PCI\\VEN_1002&DEV_6660&SUBSYS_078B1028", "PCI\\VEN_1002&DEV_6660"], "prefer": "Advanced Micro Devices"},
+  {"name": "Intel Wireless-AC 3165", "queries": ["PCI\\VEN_8086&DEV_3165&SUBSYS_44108086", "PCI\\VEN_8086&DEV_3165"]},
+  {"name": "Intel Bluetooth 3165", "queries": ["USB\\VID_8087&PID_0A2A"]},
+  {"name": "Realtek RTL8101 Ethernet", "queries": ["PCI\\VEN_10EC&DEV_8136&SUBSYS_078A1028", "PCI\\VEN_10EC&DEV_8136"]},
+  {"name": "Realtek ALC3246 Audio", "queries": ["HDAUDIO\\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_1028078B", "HDAUDIO\\FUNC_01&VEN_10EC&DEV_0256"]},
+  {"name": "Intel Display Audio", "queries": ["HDAUDIO\\FUNC_01&VEN_8086&DEV_280B"]},
+  {"name": "Intel Serial IO I2C 0", "queries": ["PCI\\VEN_8086&DEV_9D60&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_9D60"]},
+  {"name": "Intel Serial IO I2C 1", "queries": ["PCI\\VEN_8086&DEV_9D61&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_9D61"]},
+  {"name": "Intel Serial IO GPIO", "queries": ["ACPI\\INT344B"]},
+  {"name": "Intel Management Engine", "queries": ["PCI\\VEN_8086&DEV_9D3A&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_9D3A"]},
+  {"name": "Intel SMBus", "queries": ["PCI\\VEN_8086&DEV_9D23"], "prefer": "^INTEL"},
+  {"name": "Intel Thermal Subsystem", "queries": ["PCI\\VEN_8086&DEV_9D31"], "prefer": "^INTEL"},
+  {"name": "Intel Processor Thermal", "queries": ["PCI\\VEN_8086&DEV_1903"]},
+  {"name": "Intel PMC", "queries": ["PCI\\VEN_8086&DEV_9D21"], "prefer": "^INTEL"},
+  {"name": "Intel Host Bridge", "queries": ["PCI\\VEN_8086&DEV_5904"], "prefer": "^INTEL"},
+  {"name": "Intel Dynamic Tuning (DPTF)", "queries": ["ACPI\\INT3400"]},
+  {"name": "Intel HID Event Filter", "queries": ["ACPI\\INT33D5"]},
+  {"name": "Intel Watchdog INT3F0D", "queries": ["ACPI\\INT3F0D"]},
+  {"name": "Realtek RTS5129 Card Reader", "queries": ["USB\\VID_0BDA&PID_0129"]}
+]

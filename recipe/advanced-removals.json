@@ -1,0 +1,98 @@
+{
+  "_comment": "Regex rules matched against the selected image's DISM/native inventory (see reports/inventory.tsv after a build). Matching identities become Tiny11 Builder 'ExpertActions'. 'never' always wins.",
+  "remove": {
+    "ProvisionedApp": [
+      "^Microsoft\\.WindowsStore_",
+      "^Microsoft\\.StorePurchaseApp_",
+      "^Microsoft\\.Services\\.Store\\.Engagement_",
+      "^Microsoft\\.MicrosoftEdge\\.Stable_",
+      "^Microsoft\\.Edge\\.GameAssist_",
+      "^MicrosoftWindows\\.Client\\.WebExperience_",
+      "^Microsoft\\.WidgetsPlatformRuntime_",
+      "^Microsoft\\.Windows\\.Ai\\.Copilot",
+      "^Microsoft\\.Wallet_",
+      "^Microsoft\\.MicrosoftJournal_",
+      "^Microsoft\\.GamingServices_",
+      "^Microsoft\\.MicrosoftPCManager_",
+      "^Microsoft\\.OneDriveSync_",
+      "^Microsoft\\.Whiteboard_",
+      "^Microsoft\\.M365Companions_",
+      "^Microsoft\\.Office\\.ActionsServer_",
+      "^Microsoft\\.LinkedIn",
+      "^7EE7776C\\.LinkedInforWindows_",
+      "^SpotifyAB\\.",
+      "^Disney\\.",
+      "^Facebook\\.",
+      "^BytedancePte\\.",
+      "^AmazonVideo\\.",
+      "^king\\.com\\."
+    ],
+    "Capability": [
+      "^App\\.Support\\.QuickAssist~",
+      "^App\\.WirelessDisplay\\.Connect~",
+      "^Browser\\.InternetExplorer~",
+      "^Hello\\.Face\\.",
+      "^Microsoft\\.Windows\\.PowerShell\\.ISE~",
+      "^Microsoft\\.Windows\\.MSPaint~",
+      "^Print\\.Fax\\.Scan~",
+      "^Print\\.Management\\.Console~",
+      "^OneCoreUAP\\.OneSync~",
+      "^XPS\\.Viewer~",
+      "^VBSCRIPT~",
+      "^Accessibility\\.Braille~",
+      "^Analog\\.Holographic\\.Desktop~"
+    ],
+    "SystemApp": [
+      "^Microsoft\\.XboxGameCallableUI_",
+      "^Microsoft\\.Windows\\.ParentalControls_",
+      "^Microsoft\\.Windows\\.PeopleExperienceHost_",
+      "^Microsoft\\.MicrosoftEdgeDevToolsClient_",
+      "^Microsoft\\.Windows\\.NarratorQuickStart_",
+      "^Microsoft\\.Windows\\.SecureAssessmentBrowser_",
+      "^Microsoft\\.Windows\\.XGpuEjectDialog_",
+      "^Microsoft\\.Windows\\.CallingShellApp_"
+    ]
+  },
+  "disable": {
+    "Feature": [
+      "^MicrosoftWindowsPowerShellV2(Root)?$",
+      "^MediaPlayback$",
+      "^WindowsMediaPlayer$",
+      "^SmbDirect$"
+    ],
+    "Service": [
+      "^DiagTrack$",
+      "^dmwappushservice$",
+      "^diagnosticshub\\.standardcollector\\.service$",
+      "^MapsBroker$",
+      "^RetailDemo$",
+      "^lfsvc$",
+      "^WMPNetworkSvc$",
+      "^XblAuthManager$",
+      "^XblGameSave$",
+      "^XboxNetApiSvc$",
+      "^XboxGipSvc$",
+      "^wisvc$",
+      "^Fax$",
+      "^PhoneSvc$",
+      "^WpcMonSvc$",
+      "^WerSvc$",
+      "^PcaSvc$",
+      "^SEMgrSvc$",
+      "^TrkWks$",
+      "^WbioSrvc$",
+      "^AJRouter$",
+      "^icssvc$",
+      "^SharedRealitySvc$",
+      "^spectrum$",
+      "^perceptionsimulation$",
+      "^MixedRealityOpenXRSvc$"
+    ]
+  },
+  "never": [
+    "Defender", "SecHealth", "SecurityHealth", "^WinDefend$", "^Sense$", "^WdNisSvc$", "^wscsvc$", "^mpssvc$",
+    "^wuauserv$", "^UsoSvc$", "^WaaSMedicSvc$", "^BITS$", "^TrustedInstaller$", "^msiserver$", "^CryptSvc$",
+    "Ethernet", "Wifi", "Wlan", "NetworkSetup",
+    "DesktopAppInstaller", "VCLibs", "UI\\.Xaml", "NET\\.Native", "WindowsAppRuntime", "WinAppRuntime"
+  ]
+}
