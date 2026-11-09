@@ -1,0 +1,137 @@
+name: Build Tiny11 (minimal)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'recipe/**'
+      - 'harness/**'
+      - 'scripts/**'
+      - 'drivers/**'
+      - '.github/workflows/build.yml'
+      - 'BUILD_TRIGGER'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tiny11-build
+  cancel-in-progress: true
+
+env:
+  # Official Tiny11 Builder engine (ntdevlabs/tiny11builder, WinUI 0.2.0 line). Bump deliberately.
+  UPSTREAM_REF: 38f7ab6b1f177098c026a19b73ec84bca9c4b874
+  WORK: C:\t11
+
+jobs:
+  build:
+    runs-on: windows-2025
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout official Tiny11 Builder engine
+        uses: actions/checkout@v4
+        with:
+          repository: ntdevlabs/tiny11builder
+          ref: ${{ env.UPSTREAM_REF }}
+          path: upstream
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build headless driver
+        run: dotnet build harness/Tiny11Headless.csproj -c Release -o "${{ env.WORK }}\bin"
+
+      - name: Free disk space and show environment
+        shell: pwsh
+        run: |
+          [System.Environment]::OSVersion.Version
+          Get-PSDrive -PSProvider FileSystem | Format-Table Name, @{n='FreeGB';e={[math]::Round($_.Free/1GB,1)}}
+          (Get-Item "$env:WINDIR\System32\dism.exe").VersionInfo.ProductVersion
+
+      - name: Download latest Windows 11 from Microsoft
+        shell: pwsh
+        run: |
+          & "${{ env.WORK }}\bin\Tiny11Headless.exe" download --out-dir "${{ env.WORK }}\src"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Get-Content "${{ env.WORK }}\src\media.json"
+
+      - name: Fetch Dell Inspiron 15-3567 drivers (Microsoft Update Catalog, pinned in drivers/manifest.json)
+        shell: pwsh
+        run: |
+          python -I scripts/resolve_drivers.py fetch drivers/manifest.json "${{ env.WORK }}\drivers"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Remove-Item -Recurse -Force "${{ env.WORK }}\drivers\_cabs"
+          # Any extra drivers committed under drivers/ are included too.
+          Get-ChildItem drivers -Directory | ForEach-Object { Copy-Item $_.FullName "${{ env.WORK }}\drivers\extra_$($_.Name)" -Recurse }
+
+      - name: Inject drivers into Windows 11 Pro image
+        shell: pwsh
+        run: |
+          $iso = Get-Content "${{ env.WORK }}\src\iso-path.txt"
+          ./scripts/inject-drivers.ps1 -Iso $iso -Drivers "${{ env.WORK }}\drivers" -Work "${{ env.WORK }}\drv" -PathFile "${{ env.WORK }}\source.txt"
+
+      - name: Build Tiny11 with recipe
+        shell: pwsh
+        run: |
+          $source = Get-Content "${{ env.WORK }}\source.txt"
+          $stamp = Get-Date -Format 'yyyyMMdd-HHmm'
+          $out = "${{ env.WORK }}\out\tiny11-minimal-$stamp.iso"
+          & "${{ env.WORK }}\bin\Tiny11Headless.exe" build --source $source `
+              --recipe recipe/tiny11-minimal.json --patterns recipe/advanced-removals.json `
+              --workspace "${{ env.WORK }}\ws" --output $out --report-dir "${{ env.WORK }}\out\reports" --edition Professional
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          "ISO_PATH=$out" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+          "STAMP=$stamp" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+
+      - name: Upload reports (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            ${{ env.WORK }}\out\reports
+            ${{ env.WORK }}\src\media.json
+          if-no-files-found: ignore
+
+      - name: Split ISO into release-sized parts
+        shell: pwsh
+        run: |
+          $iso = Get-Item $env:ISO_PATH
+          $parts = "${{ env.WORK }}\parts"; New-Item -ItemType Directory -Force $parts | Out-Null
+          $chunk = 1900MB; $buf = New-Object byte[] (64MB); $n = 0
+          $in = [IO.File]::OpenRead($iso.FullName)
+          try {
+            while ($in.Position -lt $in.Length) {
+              $n++; $name = Join-Path $parts ("{0}.part{1:D2}" -f $iso.Name, $n)
+              $outStream = [IO.File]::Create($name); $written = 0
+              try {
+                while ($written -lt $chunk -and ($read = $in.Read($buf, 0, [Math]::Min($buf.Length, $chunk - $written))) -gt 0) {
+                  $outStream.Write($buf, 0, $read); $written += $read
+                }
+              } finally { $outStream.Dispose() }
+            }
+          } finally { $in.Dispose() }
+          $hash = (Get-FileHash $iso.FullName -Algorithm SHA256).Hash.ToLower()
+          "$hash  $($iso.Name)" | Set-Content -Encoding ascii (Join-Path $parts 'SHA256SUMS.txt')
+          Compress-Archive -Path "${{ env.WORK }}\out\reports\*" -DestinationPath (Join-Path $parts 'reports.zip') -Force
+          Get-ChildItem $parts | Format-Table Name, Length
+
+      - name: Publish GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "tiny11-$env:STAMP"
+          $media = Get-Content "${{ env.WORK }}\src\media.json" | ConvertFrom-Json
+          $notes = @"
+          Tiny11 minimal build from official Microsoft media: $($media.Description) ($($media.FileName)).
+          Built with the official Tiny11 Builder engine at ntdevlabs/tiny11builder@$env:UPSTREAM_REF.
+
+          Reassemble on Linux:  cat *.iso.part* > tiny11.iso && sha256sum -c SHA256SUMS.txt
+          Reassemble on Windows: copy /b tiny11*.iso.part01+tiny11*.iso.part02+... tiny11.iso
+          "@
+          gh release create $tag (Get-ChildItem "${{ env.WORK }}\parts\*").FullName --title "Tiny11 minimal $env:STAMP" --notes $notes
