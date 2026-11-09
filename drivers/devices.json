@@ -1,5 +1,5 @@
 [
-  {"name": "Intel HD Graphics 620", "queries": ["PCI\\VEN_8086&DEV_5916&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_5916"], "prefer": "^Intel"},
+  {"name": "Intel HD Graphics 620", "queries": ["PCI\\VEN_8086&DEV_5916&SUBSYS_078B1028", "PCI\\VEN_8086&DEV_5916"], "prefer": "^Intel", "anyQuery": true},
   {"name": "AMD Radeon R5 M430", "queries": ["PCI\\VEN_1002&DEV_6660&SUBSYS_078B1028", "PCI\\VEN_1002&DEV_6660"], "prefer": "Advanced Micro Devices"},
   {"name": "Intel Wireless-AC 3165", "queries": ["PCI\\VEN_8086&DEV_3165&SUBSYS_44108086", "PCI\\VEN_8086&DEV_3165"]},
   {"name": "Intel Bluetooth 3165", "queries": ["USB\\VID_8087&PID_0A2A"]},

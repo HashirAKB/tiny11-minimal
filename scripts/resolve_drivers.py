@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Resolve Windows 10/11 x64 drivers for every device in drivers/devices.json from the Microsoft Update Catalog.
 
-For each device, the hardware-ID queries run from most specific (with Dell subsystem) to generic.
-Results are grouped by package family (title without version) and the newest release of each family wins,
-so a base driver comes with its Dell extension INF / software components when the catalog has them.
+For each device, the hardware-ID queries run from most specific (with Dell subsystem) to generic; the first
+query with results wins (unless the device sets "anyQuery", then the newest across all queries wins).
+The newest package is pinned, plus the newest extension / software component package when the catalog has one.
 
   resolve:  python resolve_drivers.py resolve devices.json manifest.json      (pins exact cab URLs)
   fetch:    python resolve_drivers.py fetch manifest.json <out-dir>          (downloads + expands cabs)
@@ -77,6 +77,8 @@ def resolve(devices_path, manifest_path):
                 if dev.get("prefer") and not re.search(dev["prefer"], r["title"], re.I):
                     continue
                 seen.add(r["id"]); r["query"] = q; rows.append(r)
+            if rows and not dev.get("anyQuery"):
+                break  # most specific hardware-ID query (e.g. with Dell subsystem) wins
         if not rows:
             print(f"!! {dev['name']}: no Windows 10/11 driver in catalog (in-box driver will be used)")
             manifest.append({"device": dev["name"], "packages": []})

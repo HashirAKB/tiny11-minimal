@@ -1,22 +1,282 @@
 [
- {"device": "Intel HD Graphics 620", "packages": [{"title": "Intel Corporation - Display - 31.0.101.2135", "date": "2025-03-05", "updateId": "6af78022-c91d-4c3a-8aa5-41cb0aa3a9ee", "query": "PCI\\VEN_8086&DEV_5916", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/08/6b218e05-fd0b-484f-b232-af3bb6d8f261_8f4e09fa71646bfdd59ca97f6bca9d63366bd8da.cab"]}]},
- {"device": "AMD Radeon R5 M430", "packages": [{"title": "Advanced Micro Devices, Inc. - Display - 27.20.20904.4000", "date": "2021-09-01", "updateId": "48ecd780-7398-4068-92e1-ff5efa80d350", "query": "PCI\\VEN_1002&DEV_6660&SUBSYS_078B1028", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2021/12/73de3f19-eeb3-408c-b6c5-8f58d07a0821_cc6da1d30f15e77d5fadadf4e71f2a5208c0178b.cab"]}]},
- {"device": "Intel Wireless-AC 3165", "packages": [{"title": "Intel - net - 19.51.50.2", "date": "2023-11-06", "updateId": "ce3e3e0b-55e2-4e87-ab8e-d3d30b8afa4e", "query": "PCI\\VEN_8086&DEV_3165&SUBSYS_44108086", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2023/12/7fda849b-cf6f-4bcb-acfa-e9177674bc8b_adc1814b4da04b6008040a28f184cd9699f48a39.cab"]}]},
- {"device": "Intel Bluetooth 3165", "packages": [{"title": "Intel Corporation - Bluetooth - 23.40.0.2", "date": "2024-02-21", "updateId": "ac53e50f-f4d5-4ab4-b554-a58419fdc6c9", "query": "USB\\VID_8087&PID_0A2A", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/05/494e1a50-68e3-4cf2-a126-3f284338e131_fff0f594d789ad64b13db2e262150e2f4dbe70ee.cab"]}]},
- {"device": "Realtek RTL8101 Ethernet", "packages": [{"title": "Realtek Driver Update (10.74.1128.2024)", "date": "2024-11-27", "updateId": "d03098e2-2433-48b0-9c54-9dae614739ef", "query": "PCI\\VEN_10EC&DEV_8136&SUBSYS_078A1028", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/01/2760c988-bb9c-4f02-9655-c6d0fc435be4_71251bebac0e675110f3da356e91574ca57b75d6.cab"]}]},
- {"device": "Realtek ALC3246 Audio", "packages": [{"title": "Realtek Semiconductor Corp. MEDIA Driver Update (6.0.10029.1)", "date": "2026-08-10", "updateId": "33791100-a3ac-47b5-895a-9cd41a59f3ec", "query": "HDAUDIO\\FUNC_01&VEN_10EC&DEV_0256", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2026/09/53419c86-59d6-446a-ac31-f3f756500034_e2fec5950a3ff07545e9a4e15aa57e42d9b12f65.cab"]}]},
- {"device": "Intel Display Audio", "packages": [{"title": "Intel(R) Corporation - MEDIA - 10.27.0.9", "date": "2020-02-24", "updateId": "c5444ef5-5984-42cb-8725-50c421b71751", "query": "HDAUDIO\\FUNC_01&VEN_8086&DEV_280B", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2020/12/0311c33e-00ca-488b-bfda-234e06241548_a643dcc6e3020bbb933784c24ba0413f0d7a6e81.cab"]}]},
- {"device": "Intel Serial IO I2C 0", "packages": [{"title": "Intel Corporation - System - 30.100.2351.81", "date": "2023-12-20", "updateId": "e19e1983-2216-4d2c-8f42-edfc7c303846", "query": "PCI\\VEN_8086&DEV_9D60", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"]}]},
- {"device": "Intel Serial IO I2C 1", "packages": [{"title": "Intel Corporation - System - 30.100.2351.81", "date": "2023-12-20", "updateId": "e19e1983-2216-4d2c-8f42-edfc7c303846", "query": "PCI\\VEN_8086&DEV_9D61", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"]}]},
- {"device": "Intel Serial IO GPIO", "packages": [{"title": "Intel Corporation - System - 30.100.2351.81", "date": "2023-12-20", "updateId": "94143681-5c7c-4c31-90a3-80b6100d6a22", "query": "ACPI\\INT344B", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"]}]},
- {"device": "Intel Management Engine", "packages": [{"title": "Intel System Driver Update (2603.9.4.0)", "date": "2026-01-12", "updateId": "6a1fbbf7-eac0-4101-979e-0fc06dbe5ee1", "query": "PCI\\VEN_8086&DEV_9D3A", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/03/ffe82eba-2531-40f6-a481-f8e98b9b884c_346cff88ac6e0f0ab04ca3052d7a9487987bae88.cab"]}]},
- {"device": "Intel SMBus", "packages": [{"title": "INTEL - System - 10.1.5.1", "date": "2018-01-31", "updateId": "bb7b7ba2-13dc-4f5f-8385-f733305e8ec4", "query": "PCI\\VEN_8086&DEV_9D23", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"]}]},
- {"device": "Intel Thermal Subsystem", "packages": [{"title": "Intel - Other hardware - Mobile 6th Generation Intel(R) Processor Family I/O Thermal subsystem - 9D31", "date": "2015-10-27", "updateId": "f72fe0f1-c058-436d-8cd0-06f55547d1db", "query": "PCI\\VEN_8086&DEV_9D31", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2015/11/20799945_15ccc1de4849836fec2258f52458ff1d4f4a8e5e.cab"]}]},
- {"device": "Intel Processor Thermal", "packages": [{"title": "Intel - System - 8.7.10700.22502", "date": "2022-04-29", "updateId": "0adb597a-2790-490d-84b5-9354a03fd6e9", "query": "PCI\\VEN_8086&DEV_1903", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2021/07/27c5ccac-2ba8-4c80-b3e3-96ed387527af_53c225cc03f17aa6354576ae2300cf365e3847e3.cab"]}]},
- {"device": "Intel PMC", "packages": [{"title": "INTEL - System - 10.1.5.1", "date": "2018-01-31", "updateId": "bb7b7ba2-13dc-4f5f-8385-f733305e8ec4", "query": "PCI\\VEN_8086&DEV_9D21", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"]}]},
- {"device": "Intel Host Bridge", "packages": [{"title": "INTEL - System - 10.1.10.2", "date": "2018-01-31", "updateId": "a48bfb1b-e3f1-45a9-8681-af0d3893f821", "query": "PCI\\VEN_8086&DEV_5904", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"]}]},
- {"device": "Intel Dynamic Tuning (DPTF)", "packages": [{"title": "Intel - System - 8.7.10802.26924", "date": "2022-04-10", "updateId": "8c9a4efe-54e2-4efd-a9ab-360fd580f88f", "query": "ACPI\\INT3400", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2022/07/0f500713-d36b-41e2-b9f0-85b56150532f_95f94116ea27c6994603bcce31eef0e314da9c16.cab"]}]},
- {"device": "Intel HID Event Filter", "packages": [{"title": "Intel(R) Corporation HIDClass Driver Update (2.2.2.18)", "date": "2025-11-18", "updateId": "9020dde1-3896-4bfe-b293-8c7881c434d3", "query": "ACPI\\INT33D5", "urls": ["https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/03/bc497a84-42ce-4f10-aa2d-ae2f1b482c72_6b8d265ddb536d9de61bb44c7f8b9e482a5f6b2a.cab"]}]},
- {"device": "Intel Watchdog INT3F0D", "packages": [{"title": "Intel - System - 11.7.0.1019", "date": "2024-08-24", "updateId": "cc5505e6-f536-420f-a4b5-17318453a852", "query": "ACPI\\INT3F0D", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/03/1197dcbb-c077-4713-a591-3b7c8b9050f4_e1a83bff4e05253d9ff9df306b11e64685d6afe4.cab"]}]},
- {"device": "Realtek RTS5129 Card Reader", "packages": [{"title": "Realtek Semiconductor Corp. - USB - 10.0.26100.31289", "date": "2024-12-25", "updateId": "9e79fb17-0a5a-43f4-a774-43f46e134f3d", "query": "USB\\VID_0BDA&PID_0129", "urls": ["https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/03/f8b01831-0720-496d-873e-89ba97fd7c23_86e53122b7faab220750ddb84085c6c995fdb899.cab"]}]}
+  {
+    "device": "Intel HD Graphics 620",
+    "packages": [
+      {
+        "title": "Intel Corporation - Display - 31.0.101.2135",
+        "date": "2025-03-05",
+        "updateId": "9f6e6334-2bcb-4fb5-8902-b1e27e58ad72",
+        "query": "PCI\\VEN_8086&DEV_5916",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/08/6b218e05-fd0b-484f-b232-af3bb6d8f261_8f4e09fa71646bfdd59ca97f6bca9d63366bd8da.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "AMD Radeon R5 M430",
+    "packages": [
+      {
+        "title": "Advanced Micro Devices, Inc. - Display - 27.20.20904.4000",
+        "date": "2021-09-01",
+        "updateId": "cab05640-3b52-436c-beb5-2423ead1c979",
+        "query": "PCI\\VEN_1002&DEV_6660&SUBSYS_078B1028",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2021/12/73de3f19-eeb3-408c-b6c5-8f58d07a0821_cc6da1d30f15e77d5fadadf4e71f2a5208c0178b.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Wireless-AC 3165",
+    "packages": [
+      {
+        "title": "Intel - net - 19.51.50.2",
+        "date": "2023-11-06",
+        "updateId": "b56bb9e3-d6bf-4998-b60d-f5686dbc0367",
+        "query": "PCI\\VEN_8086&DEV_3165&SUBSYS_44108086",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2023/12/7fda849b-cf6f-4bcb-acfa-e9177674bc8b_adc1814b4da04b6008040a28f184cd9699f48a39.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Bluetooth 3165",
+    "packages": [
+      {
+        "title": "Intel Corporation - Bluetooth - 23.40.0.2",
+        "date": "2024-02-21",
+        "updateId": "ac53e50f-f4d5-4ab4-b554-a58419fdc6c9",
+        "query": "USB\\VID_8087&PID_0A2A",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/05/494e1a50-68e3-4cf2-a126-3f284338e131_fff0f594d789ad64b13db2e262150e2f4dbe70ee.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Realtek RTL8101 Ethernet",
+    "packages": [
+      {
+        "title": "Realtek Driver Update (10.74.1128.2024)",
+        "date": "2024-11-27",
+        "updateId": "21e31884-d348-4cc8-bef8-286b56fba265",
+        "query": "PCI\\VEN_10EC&DEV_8136&SUBSYS_078A1028",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/01/2760c988-bb9c-4f02-9655-c6d0fc435be4_71251bebac0e675110f3da356e91574ca57b75d6.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Realtek ALC3246 Audio",
+    "packages": [
+      {
+        "title": "Realtek Semiconductor Corp. MEDIA Driver Update (6.0.9960.1)",
+        "date": "2026-03-02",
+        "updateId": "c5ffceef-5ae1-460f-b0d2-e5de39cff066",
+        "query": "HDAUDIO\\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_1028078B",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/03/5808e972-5160-4430-a579-48b8c7322503_2df41a34eaa30bddd4430c787718b3054c198312.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Display Audio",
+    "packages": [
+      {
+        "title": "Intel(R) Corporation - MEDIA - 10.27.0.9",
+        "date": "2020-02-24",
+        "updateId": "c5444ef5-5984-42cb-8725-50c421b71751",
+        "query": "HDAUDIO\\FUNC_01&VEN_8086&DEV_280B",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2020/12/0311c33e-00ca-488b-bfda-234e06241548_a643dcc6e3020bbb933784c24ba0413f0d7a6e81.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Serial IO I2C 0",
+    "packages": [
+      {
+        "title": "Intel Corporation - System - 30.100.2351.81",
+        "date": "2023-12-20",
+        "updateId": "098aeed3-74b2-4e80-9dce-8d5b7552d37c",
+        "query": "PCI\\VEN_8086&DEV_9D60",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Serial IO I2C 1",
+    "packages": [
+      {
+        "title": "Intel Corporation - System - 30.100.2351.81",
+        "date": "2023-12-20",
+        "updateId": "098aeed3-74b2-4e80-9dce-8d5b7552d37c",
+        "query": "PCI\\VEN_8086&DEV_9D61",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Serial IO GPIO",
+    "packages": [
+      {
+        "title": "Intel Corporation - System - 30.100.2351.81",
+        "date": "2023-12-20",
+        "updateId": "877e73b7-7753-4dfa-9f5a-03c27e63ee4c",
+        "query": "ACPI\\INT344B",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2024/04/05b4f5e8-1d4f-43d0-b49d-0bcbc7d50110_e8c6258435f6ffa8b0c843c02d92634d73ec1e77.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Management Engine",
+    "packages": [
+      {
+        "title": "Intel System Driver Update (2603.9.4.0)",
+        "date": "2026-01-12",
+        "updateId": "a8ad9459-2fba-4be9-b8b2-9533bfa0b824",
+        "query": "PCI\\VEN_8086&DEV_9D3A",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/03/ffe82eba-2531-40f6-a481-f8e98b9b884c_346cff88ac6e0f0ab04ca3052d7a9487987bae88.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel SMBus",
+    "packages": [
+      {
+        "title": "INTEL - System - 10.1.5.1",
+        "date": "2018-01-31",
+        "updateId": "bb7b7ba2-13dc-4f5f-8385-f733305e8ec4",
+        "query": "PCI\\VEN_8086&DEV_9D23",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Thermal Subsystem",
+    "packages": [
+      {
+        "title": "INTEL - System - 10.1.1.44",
+        "date": "2018-07-17",
+        "updateId": "4fc2c6bc-9cf8-4498-b3a0-275f3de0711f",
+        "query": "PCI\\VEN_8086&DEV_9D31",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2020/08/9972fce6-371c-4c3b-9d4c-07b35e1e339a_5c9187451b6c2ff2a499957a8be234c8c115e64e.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Processor Thermal",
+    "packages": [
+      {
+        "title": "Intel - System - 8.7.10802.26924",
+        "date": "2022-04-10",
+        "updateId": "dc1e2ff5-d502-4646-a483-1b53588f951c",
+        "query": "PCI\\VEN_8086&DEV_1903",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2022/07/0f500713-d36b-41e2-b9f0-85b56150532f_95f94116ea27c6994603bcce31eef0e314da9c16.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel PMC",
+    "packages": [
+      {
+        "title": "INTEL - System - 10.1.5.1",
+        "date": "2018-01-31",
+        "updateId": "bb7b7ba2-13dc-4f5f-8385-f733305e8ec4",
+        "query": "PCI\\VEN_8086&DEV_9D21",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Host Bridge",
+    "packages": [
+      {
+        "title": "INTEL - System - 10.1.10.2",
+        "date": "2018-01-31",
+        "updateId": "a48bfb1b-e3f1-45a9-8681-af0d3893f821",
+        "query": "PCI\\VEN_8086&DEV_5904",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2019/11/0f56-33e3-4028-25a8_b465a1d35690a550cd443897791f68ff1645d988.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Dynamic Tuning (DPTF)",
+    "packages": [
+      {
+        "title": "Intel - System - 8.7.10802.26924",
+        "date": "2022-04-10",
+        "updateId": "8c9a4efe-54e2-4efd-a9ab-360fd580f88f",
+        "query": "ACPI\\INT3400",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2022/07/0f500713-d36b-41e2-b9f0-85b56150532f_95f94116ea27c6994603bcce31eef0e314da9c16.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel HID Event Filter",
+    "packages": [
+      {
+        "title": "Intel(R) Corporation HIDClass Driver Update (2.2.2.18)",
+        "date": "2025-11-18",
+        "updateId": "83b1d226-8cef-4cab-bf25-7c2058605994",
+        "query": "ACPI\\INT33D5",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/d/msdownload/update/driver/drvs/2026/03/bc497a84-42ce-4f10-aa2d-ae2f1b482c72_6b8d265ddb536d9de61bb44c7f8b9e482a5f6b2a.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Intel Watchdog INT3F0D",
+    "packages": [
+      {
+        "title": "Intel - System - 11.7.0.1019",
+        "date": "2024-08-24",
+        "updateId": "4d0e935c-3352-48c8-974a-575a36363687",
+        "query": "ACPI\\INT3F0D",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/03/1197dcbb-c077-4713-a591-3b7c8b9050f4_e1a83bff4e05253d9ff9df306b11e64685d6afe4.cab"
+        ]
+      }
+    ]
+  },
+  {
+    "device": "Realtek RTS5129 Card Reader",
+    "packages": [
+      {
+        "title": "Realtek Semiconductor Corp. - USB - 10.0.26100.31289",
+        "date": "2024-12-25",
+        "updateId": "7d70d141-e0fe-4c26-9818-69cd3e203aea",
+        "query": "USB\\VID_0BDA&PID_0129",
+        "urls": [
+          "https://catalog.s.download.windowsupdate.com/c/msdownload/update/driver/drvs/2025/03/f8b01831-0720-496d-873e-89ba97fd7c23_86e53122b7faab220750ddb84085c6c995fdb899.cab"
+        ]
+      }
+    ]
+  }
 ]

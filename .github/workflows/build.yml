@@ -22,7 +22,8 @@ concurrency:
 env:
   # Official Tiny11 Builder engine (ntdevlabs/tiny11builder, WinUI 0.2.0 line). Bump deliberately.
   UPSTREAM_REF: 38f7ab6b1f177098c026a19b73ec84bca9c4b874
-  WORK: C:\t11
+  # D: has ~220 GB free on windows-2025 runners; C: has only ~28 GB.
+  WORK: D:\t11
 
 jobs:
   build:

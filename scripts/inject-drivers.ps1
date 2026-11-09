@@ -36,12 +36,13 @@ $index = ($info | Where-Object { (Get-WindowsImage -ImagePath $imageFile -Index 
 if (-not $index) { throw "Edition $Edition not found" }
 
 if ($infs.Count -gt 0) {
-  if ($imageFile -eq $esd) {
-    Write-Host 'Converting install.esd (selected edition) to install.wim'
-    Export-WindowsImage -SourceImagePath $esd -SourceIndex $index -DestinationImagePath $wim -CompressionType Maximum | Out-Null
-    Remove-Item $esd -Force
-    $imageFile = $wim; $index = 1
-  }
+  # Keep only the selected edition: a single-image WIM is much smaller and faster to service and commit.
+  Write-Host "Exporting edition #$index ($Edition) to a single-image install.wim"
+  $single = Join-Path $Work 'install-single.wim'
+  Export-WindowsImage -SourceImagePath $imageFile -SourceIndex $index -DestinationImagePath $single -CompressionType Maximum | Out-Null
+  Remove-Item $imageFile -Force
+  Move-Item $single $wim -Force
+  $imageFile = $wim; $index = 1
   Set-ItemProperty -Path $imageFile -Name IsReadOnly -Value $false
   Mount-WindowsImage -ImagePath $imageFile -Index $index -Path $mount | Out-Null
   try {
@@ -56,9 +57,32 @@ if ($infs.Count -gt 0) {
     }
     Write-Host "Injected $added INF(s); skipped $failed."
     if ($added -eq 0) { throw 'No drivers could be injected' }
+    $present = Get-WindowsDriver -Path $mount
     Write-Host 'Drivers now in the image:'
-    Get-WindowsDriver -Path $mount | Sort-Object ClassName, ProviderName |
+    $present | Sort-Object ClassName, ProviderName |
       ForEach-Object { Write-Host ("  {0,-16} {1,-34} {2}  {3}" -f $_.ClassName, $_.ProviderName, $_.Version, $_.OriginalFileName.Split('\')[-1]) }
+    # Devices that must work offline on the Inspiron 15-3567. Fail the build if any is missing.
+    $required = [ordered]@{
+      'Intel HD Graphics 620'    = '^iigd_dch\.inf$'
+      'AMD Radeon R5 M430'       = '^u\d+\.inf$'
+      'Intel Wireless-AC 3165'   = '^netwtw04\.inf$'
+      'Intel Bluetooth'          = '^ibtusb\.inf$'
+      'Realtek Ethernet'         = '^rt640x64\.inf$'
+      'Realtek HD audio (Dell)'  = '^hdxdell\w*\.inf$'
+      'Intel Serial IO I2C'      = '^ialpss2_i2c_skl\.inf$'
+      'Intel Serial IO GPIO'     = '^ialpss2_gpio2_skl\.inf$'
+      'Intel Management Engine'  = '^heci\.inf$'
+      'Intel HID Event Filter'   = '^hideventfilter\.inf$'
+      'Realtek card reader'      = '^rtsuer\.inf$'
+    }
+    $missing = @()
+    foreach ($k in $required.Keys) {
+      $pattern = $required[$k]
+      $hit = $present | Where-Object { $_.OriginalFileName.Split('\')[-1] -match $pattern } | Select-Object -First 1
+      if ($hit) { Write-Host ("  OK   {0,-26} {1} {2}" -f $k, $hit.OriginalFileName.Split('\')[-1], $hit.Version) }
+      else { Write-Host ("  MISS {0}" -f $k); $missing += $k }
+    }
+    if ($missing.Count -gt 0) { throw "Required drivers missing from image: $($missing -join ', ')" }
   } finally {
     Dismount-WindowsImage -Path $mount -Save | Out-Null
   }
