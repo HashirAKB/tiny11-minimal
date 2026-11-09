@@ -51,11 +51,7 @@
     "cleanup",
     "hardware-bypass",
     "reserved-storage",
-    "device-encryption",
-    "remove-ime-files",
-    "remove-speech-files",
-    "remove-print-drivers",
-    "remove-extra-media"
+    "device-encryption"
   ],
   "UpdatePackages": [],
   "EnableNetFx3": true,

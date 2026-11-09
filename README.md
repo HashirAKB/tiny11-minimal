@@ -23,9 +23,12 @@ Notepad, Calculator, Snipping Tool, Photos, winget (App Installer) and .NET 3.5 
 Microsoft Store, Edge and WebView2, OneDrive, Copilot, Recall and AI apps, Widgets, Teams, Outlook/Mail,
 Xbox and Game Bar, Clipchamp, News/Weather/Bing, Office promos, Solitaire, Phone Link, Feedback/Tips,
 Dev Home, Power Automate, People/To Do/Family/Skype, Maps, Media Player/Movies, Clock/Recorder/Sticky
-Notes, Quick Assist, Paint/3D Viewer/OneNote, Camera, OEM promos, speech/OCR/handwriting/IME payloads,
+Notes, Quick Assist, Paint/3D Viewer/OneNote, Camera, OEM promos, speech/OCR/handwriting capabilities,
 WordPad/Steps Recorder/legacy WMP, XPS, Work Folders, IE, Hello Face, PowerShell ISE, Fax & Scan,
-VBScript, Braille, Mixed Reality, extra wallpapers, sounds and help, and printer/scanner driver payloads.
+VBScript, Braille and Mixed Reality.
+
+The direct payload-deletion groups (IME, speech files, printer drivers, wallpapers/sounds) are not used:
+Tiny11 Builder refuses them together with .NET 3.5, and they can break Windows Update.
 
 Policies: no ads or suggestions, minimal telemetry, no web search, no Copilot/Recall/Widgets, OOBE nags off,
 local account setup, hardware checks bypassed (TPM/CPU/RAM/Secure Boot), reserved storage off,
