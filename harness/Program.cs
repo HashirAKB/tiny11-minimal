@@ -24,6 +24,8 @@ try
 {
     switch (cmd)
     {
+        case "resolve": await Resolve(); break;
+        case "check-tools": CheckTools(); break;
         case "download": await Download(); break;
         case "build": await Build(); break;
         default:
@@ -37,6 +39,39 @@ catch (Exception e)
     Console.Error.WriteLine($"::error::{e.GetType().Name}: {e.Message}");
     Console.Error.WriteLine(e);
     return 1;
+}
+
+// Find the latest official media without downloading it (used for the cache key).
+async Task Resolve()
+{
+    using var catalogClient = LatestWindowsMedia.CreateClient();
+    var media = await new LatestWindowsMedia(catalogClient).ResolveAsync("x64", new CultureInfo(Opt("culture", "en-US")), status, token);
+    Log("resolve", $"Latest official media: {media.Description} {media.FileName}");
+    var build = Regex.Match(media.FileName, @"_(\d{5})_(\d+)").Groups;
+    Console.WriteLine($"ISO_NAME={media.FileName}");
+    Console.WriteLine($"IMAGE_BUILD={(build[1].Success ? build[1].Value : "0")}");
+    if (Environment.GetEnvironmentVariable("GITHUB_OUTPUT") is { Length: > 0 } output)
+        await File.AppendAllLinesAsync(output, [$"iso_name={media.FileName}", $"image_build={(build[1].Success ? build[1].Value : "0")}"], token);
+    if (opts.TryGetValue("out-dir", out var dir))
+    {
+        Directory.CreateDirectory(PathSafety.Full(dir));
+        await File.WriteAllTextAsync(Path.Combine(PathSafety.Full(dir), "media.json"), JsonSerializer.Serialize(new
+        {
+            media.Description, media.FileName, media.Language, media.Architecture
+        }, new JsonSerializerOptions { WriteIndented = true }), token);
+    }
+}
+
+// Fail fast if the engine would reject the installed DISM for this image build.
+void CheckTools()
+{
+    var dism = ToolLocator.FindDism(s => Log("tools", s));
+    var servicing = ToolLocator.ServicingVersionOf(dism);
+    var build = int.Parse(Opt("image-build", "26100"));
+    var probe = new WindowsImage(1, "probe", "probe", "x64", new Version(10, 0, build, 0), "Professional", "Client", 1);
+    Log("tools", $"DISM {dism} servicing engine {servicing}; image build {build}");
+    ToolLocator.EnsureServicingVersion(dism, probe);
+    Log("tools", "DISM servicing stack accepted by Tiny11 Builder.");
 }
 
 async Task Download()

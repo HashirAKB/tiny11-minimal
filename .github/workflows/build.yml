@@ -65,7 +65,30 @@ jobs:
             if (Test-Path $f) { "{0,-110} {1}" -f $f, (Get-Item $f).VersionInfo.FileVersionRaw } else { "{0,-110} (missing)" -f $f }
           }
 
+      - name: Find latest Windows 11 release
+        id: media
+        shell: pwsh
+        run: |
+          & "${{ env.WORK }}\bin\Tiny11Headless.exe" resolve --out-dir "${{ env.WORK }}\src"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Check DISM is accepted by Tiny11 Builder (fail fast)
+        shell: pwsh
+        run: |
+          & "${{ env.WORK }}\bin\Tiny11Headless.exe" check-tools --image-build ${{ steps.media.outputs.image_build }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      # Prepared media = official ISO + Inspiron 15-3567 drivers injected into a single-edition Pro image.
+      # Cached so later runs skip the ISO download, driver fetch and injection (~35 min) unless one of them changes.
+      - name: Restore prepared media from cache
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.WORK }}\drv\media
+          key: media-v1-${{ steps.media.outputs.iso_name }}-${{ hashFiles('drivers/manifest.json', 'drivers/**/*.inf', 'scripts/inject-drivers.ps1', 'scripts/resolve_drivers.py') }}
+
       - name: Download latest Windows 11 from Microsoft
+        if: steps.cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           & "${{ env.WORK }}\bin\Tiny11Headless.exe" download --out-dir "${{ env.WORK }}\src"
@@ -73,6 +96,7 @@ jobs:
           Get-Content "${{ env.WORK }}\src\media.json"
 
       - name: Fetch Dell Inspiron 15-3567 drivers (Microsoft Update Catalog, pinned in drivers/manifest.json)
+        if: steps.cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           python -I scripts/resolve_drivers.py fetch drivers/manifest.json "${{ env.WORK }}\drivers"
@@ -82,15 +106,27 @@ jobs:
           Get-ChildItem drivers -Directory | ForEach-Object { Copy-Item $_.FullName "${{ env.WORK }}\drivers\extra_$($_.Name)" -Recurse }
 
       - name: Inject drivers into Windows 11 Pro image
+        if: steps.cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           $iso = Get-Content "${{ env.WORK }}\src\iso-path.txt"
           ./scripts/inject-drivers.ps1 -Iso $iso -Drivers "${{ env.WORK }}\drivers" -Work "${{ env.WORK }}\drv" -PathFile "${{ env.WORK }}\source.txt"
+          # Free space: the original ISO and expanded drivers are no longer needed.
+          Remove-Item -Force $iso
+          Remove-Item -Recurse -Force "${{ env.WORK }}\drivers"
+
+      - name: Save prepared media to cache (kept even if the build below fails)
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.WORK }}\drv\media
+          key: ${{ steps.cache.outputs.cache-primary-key }}
 
       - name: Build Tiny11 with recipe
         shell: pwsh
         run: |
-          $source = Get-Content "${{ env.WORK }}\source.txt"
+          $source = "${{ env.WORK }}\drv\media"
+          if (-not (Test-Path "$source\sources\install.wim")) { throw "Prepared media missing: $source" }
           $stamp = Get-Date -Format 'yyyyMMdd-HHmm'
           $out = "${{ env.WORK }}\out\tiny11-minimal-$stamp.iso"
           & "${{ env.WORK }}\bin\Tiny11Headless.exe" build --source $source `
